@@ -82,10 +82,12 @@ body {
 }
 
 /* ─── Swiss Grid Rules ────────────────────────────────────────────────────── */
+/* align-items: stretch ensures all cards in a row share the same height (M-05) */
 .swiss-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--grid-gap);
+  align-items: stretch;
 }
 
 /* Featured cells span 2 columns */
@@ -93,9 +95,9 @@ body {
   grid-column: span 2;
 }
 
-/* Dead-space cells — visible grid ghost */
+/* Dead-space cells — visible grid ghost (M-02: raised from 0.06 to 0.18) */
 .dead-cell {
-  border: 1px dashed rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(255, 255, 255, 0.18);
   background: transparent;
   min-height: 200px;
 }
@@ -116,9 +118,12 @@ body {
 }
 
 /* ─── Focus Styles ────────────────────────────────────────────────────────── */
+/* Dual-layer ring: orange outline + carbon gap — visible on both dark AND
+   orange card backgrounds (H-02) */
 :focus-visible {
   outline: 2px solid var(--orange);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--carbon);
 }
 
 /* ─── Noise Texture Overlay ───────────────────────────────────────────────── */
@@ -133,9 +138,14 @@ body {
 }
 
 /* ─── Responsive Grid Breakpoints ─────────────────────────────────────────── */
+/* M-03: At tablet, collapse col-span-2 to col-span-1 so featured cards don't
+   span the full container width and leave a dead half-row. */
 @media (max-width: 900px) {
   .swiss-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .col-span-2 {
+    grid-column: span 1;
   }
 }
 
@@ -148,5 +158,10 @@ body {
   }
   .dead-cell {
     display: none;
+  }
+  /* L-06: allow card backs to scroll on mobile if content exceeds card height */
+  .card-back-face {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }

@@ -36,14 +36,15 @@ const statVariants = {
 export default function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden bg-carbon noise" aria-label="Site introduction">
-      {/* Structural grid overlay — purely visual */}
+      {/* Structural grid overlay — M-01: raised from 0.025 → 0.08 so cells
+          read as intentional structure rather than invisible void */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), " +
-            "linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), " +
+            "linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
           backgroundSize: "clamp(4rem, 10vw, 7rem) clamp(4rem, 10vw, 7rem)",
         }}
       />
@@ -118,15 +119,51 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Vertical rule — dead space column on large screens */}
-          <div className="hidden md:flex md:col-span-1 items-end justify-center pb-4">
+          {/* Right annotation column — M-01: was a near-invisible 1px divider.
+              Now a proper editorial annotation zone with visible rule + labels. */}
+          <div className="hidden md:flex md:col-span-1 flex-col items-center justify-between py-2 gap-3">
+            <motion.span
+              className="font-mono uppercase"
+              style={{
+                fontSize: "9px",
+                letterSpacing: "0.25em",
+                color: "rgba(245,245,245,0.25)",
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+                userSelect: "none",
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.7 }}
+              aria-hidden="true"
+            >
+              Field Guide to Self-Deception
+            </motion.span>
+
             <motion.div
-              className="w-px bg-carbon-mid"
-              style={{ height: "60%" }}
-              initial={{ scaleY: 0, originY: 1 }}
+              className="flex-1 w-px"
+              style={{ background: "rgba(255,255,255,0.15)", minHeight: "2rem" }}
+              initial={{ scaleY: 0, originY: 0.5 }}
               animate={{ scaleY: 1 }}
               transition={{ duration: 0.8, delay: 0.6, ease: [0.23, 1, 0.32, 1] }}
             />
+
+            <motion.span
+              className="font-mono uppercase"
+              style={{
+                fontSize: "9px",
+                letterSpacing: "0.25em",
+                color: "rgba(255,79,0,0.55)",
+                writingMode: "vertical-rl",
+                userSelect: "none",
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1, duration: 0.6 }}
+              aria-hidden="true"
+            >
+              Vol. I — 2026
+            </motion.span>
           </div>
         </div>
 
@@ -142,7 +179,8 @@ export default function HeroSection() {
         {/* Subtext + stats row */}
         <div className="grid grid-cols-4 gap-5 mt-6 md:mt-8">
           <motion.p
-            className="col-span-4 md:col-span-2 font-body text-grey-dim text-base md:text-lg leading-relaxed"
+            className="col-span-4 md:col-span-2 font-body text-base md:text-lg leading-relaxed"
+            style={{ color: "rgba(245,245,245,0.55)" }}
             custom={0}
             variants={statVariants}
             initial="hidden"
@@ -173,7 +211,12 @@ export default function HeroSection() {
                 >
                   {s.n}
                 </div>
-                <div className="font-mono text-[10px] tracking-[0.2em] text-grey-dim mt-1 uppercase">
+                {/* L-03: was text-grey-dim (#888) — off-palette standalone grey.
+                    Now rgba(245,245,245,0.50) — on-palette opacity variant. */}
+                <div
+                  className="font-mono text-[10px] tracking-[0.2em] mt-1 uppercase"
+                  style={{ color: "rgba(245,245,245,0.50)" }}
+                >
                   {s.label}
                 </div>
               </motion.div>
@@ -182,8 +225,10 @@ export default function HeroSection() {
         </div>
 
         {/* Bottom instruction */}
+        {/* L-04: was text-grey-subtle (#444, ~1.9:1 contrast). Now on-palette opacity. */}
         <motion.p
-          className="mt-10 md:mt-14 font-mono text-xs tracking-widest text-grey-subtle uppercase"
+          className="mt-10 md:mt-14 font-mono text-xs tracking-widest uppercase"
+          style={{ color: "rgba(245,245,245,0.35)" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.1, duration: 0.6 }}

@@ -96,10 +96,12 @@ export default function BiasCard({ bias, featured = false }: BiasCardProps) {
             <span
               className="font-mono text-[10px] tracking-[0.15em] uppercase px-2 py-0.5"
               style={{
+                /* M-04: invert orange-card tag to dark chip — was 3.51:1 (fail),
+                   now off-white on near-black → >12:1 (pass) */
                 background: featured
-                  ? "rgba(26,26,26,0.12)"
+                  ? "rgba(26,26,26,0.75)"
                   : `${accentColor}22`,
-                color: featured ? "rgba(26,26,26,0.7)" : accentColor,
+                color: featured ? "rgba(245,245,245,0.9)" : accentColor,
                 border: featured ? "none" : `1px solid ${accentColor}44`,
               }}
             >
@@ -129,7 +131,8 @@ export default function BiasCard({ bias, featured = false }: BiasCardProps) {
               className="font-body mt-2 leading-snug"
               style={{
                 fontSize: "clamp(0.75rem, 1.5vw, 0.9rem)",
-                color: featured ? "rgba(26,26,26,0.65)" : "rgba(245,245,245,0.45)",
+                /* H-03: raised opacity 0.45 → 0.55 to pass WCAG AA (4.20:1 → 5.37:1) */
+                color: featured ? "rgba(26,26,26,0.65)" : "rgba(245,245,245,0.55)",
               }}
             >
               "{bias.tagline}"
@@ -140,21 +143,23 @@ export default function BiasCard({ bias, featured = false }: BiasCardProps) {
           <span
             className="editorial-number font-display font-black"
             style={{
+              /* L-01: raised dark-card stroke from 0.05 → 0.12 so watermark
+                 is actually visible as a subtle editorial texture */
               color: "transparent",
               WebkitTextStroke: featured
-                ? "1px rgba(26,26,26,0.08)"
-                : "1px rgba(255,255,255,0.05)",
+                ? "1px rgba(26,26,26,0.10)"
+                : "1px rgba(245,245,245,0.12)",
             }}
             aria-hidden="true"
           >
             {String(bias.number).padStart(2, "0")}
           </span>
 
-          {/* Flip cue */}
+          {/* Flip cue — L-02: bumped from 9px→11px and opacity raised for discoverability */}
           <div
-            className="absolute bottom-3 right-3 font-mono text-[9px] tracking-widest uppercase flex items-center gap-1"
+            className="absolute bottom-3 right-3 font-mono text-[11px] tracking-widest uppercase flex items-center gap-1"
             style={{
-              color: featured ? "rgba(26,26,26,0.35)" : "rgba(245,245,245,0.2)",
+              color: featured ? "rgba(26,26,26,0.50)" : "rgba(245,245,245,0.35)",
             }}
             aria-hidden="true"
           >
@@ -179,8 +184,9 @@ export default function BiasCard({ bias, featured = false }: BiasCardProps) {
             <span className="font-mono text-[11px] tracking-[0.2em] text-offwhite/40 uppercase">
               {String(bias.number).padStart(2, "0")} — Mental Fix
             </span>
+            {/* L-05: reduced opacity (30→20) to subordinate vs the Mental Fix label */}
             <span
-              className="font-mono text-[9px] tracking-widest uppercase flex items-center gap-1 text-offwhite/30"
+              className="font-mono text-[9px] tracking-widest uppercase flex items-center gap-1 text-offwhite/20"
               aria-hidden="true"
             >
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -190,11 +196,18 @@ export default function BiasCard({ bias, featured = false }: BiasCardProps) {
             </span>
           </div>
 
-          {/* Bias name in small */}
+          {/* Bias name in small — H-01: was text-orange on teal (1.90:1 fail).
+              Now off-white text (5.74:1 pass) with orange left accent stripe. */}
           <div className="mt-3">
             <p
-              className="font-display font-bold text-orange uppercase tracking-tight"
-              style={{ fontSize: "clamp(0.65rem, 1.4vw, 0.8rem)", letterSpacing: "0.05em" }}
+              className="font-display font-bold uppercase tracking-tight"
+              style={{
+                fontSize: "clamp(0.65rem, 1.4vw, 0.8rem)",
+                letterSpacing: "0.05em",
+                color: "#F5F5F5",
+                borderLeft: "2px solid #FF4F00",
+                paddingLeft: "0.5rem",
+              }}
             >
               {bias.name}
             </p>
