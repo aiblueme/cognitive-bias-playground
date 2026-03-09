@@ -36,6 +36,7 @@ Agent: Claude Code
 - (none)
 
 ## Done
+- [x] Add MIT LICENSE — 2026-03-10 — commit 8773cf0
 - [x] .dockerignore created — 2026-03-09
 - [x] docker-compose.yml added with SWAG labels — 2026-03-09
 - [x] MotionProvider (prefers-reduced-motion) — 2026-03-10 — commit 5353b3c
