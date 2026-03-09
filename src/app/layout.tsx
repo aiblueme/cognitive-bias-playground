@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
+import MotionProvider from "@/components/MotionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
     description:
       "20 cognitive shortcuts that systematically warp your reality.",
     type: "website",
+    url: "https://logic.shellnode.lol",
   },
 };
 
@@ -54,7 +56,7 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}
     >
       <body className="font-body antialiased bg-carbon text-offwhite min-h-screen">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );
